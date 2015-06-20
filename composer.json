@@ -1,0 +1,25 @@
+{
+	"name": "senasi/BackgroundJob",
+	"type": "library",
+	"description": "Run PHP code in background",
+	"keywords": ["background", "job", "closure", "async"],
+	"homepage": "https://github.com/senasi/BackgroundJob",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Vlado Senasi",
+			"email": "vlado@senasi.sk",
+			"homepage": "https://github.com/senasi",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": ">=5.4",
+		"jeremeamia/superclosure": "~2.1"
+	},
+	"autoload": {
+		"psr-4": {
+			"BackgroundJob\\": "src/"
+		}
+	}
+}
