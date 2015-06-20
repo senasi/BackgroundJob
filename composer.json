@@ -1,5 +1,5 @@
 {
-	"name": "senasi/BackgroundJob",
+	"name": "senasi/background-job",
 	"type": "library",
 	"description": "Run PHP code in background",
 	"keywords": ["background", "job", "closure", "async"],
