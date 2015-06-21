@@ -200,13 +200,15 @@ class Client {
 		$errors = [];
 		$exception = null;
 
-		$a = explode("\r\n\r\n", $message, 2);
+		// explode http message to headers part and body part (if any)
+		$split = explode("\r\n\r\n", $message, 2);
 
-		if (array_key_exists(1, $a)) {
-			$returnValue = unserialize($a[1]);
+		if (array_key_exists(1, $split)) {
+			$returnValue = unserialize($split[1]);
 		}
 
-		if (preg_match_all('/^([^\:]+)\:+(.+)$/m', $a[0], $m, PREG_SET_ORDER)) {
+		// process all headers and set errors/exception/success flag
+		if (preg_match_all('/^([^\:]+)\:+(.+)$/m', $split[0], $m, PREG_SET_ORDER)) {
 			foreach ($m as $header) {
 				switch($header[1]) {
 					case 'X-BackgroundJob-Error':
@@ -317,7 +319,6 @@ class Client {
 		$headers = array(
 			'Host' => 'localhost', // @todo host
 			'Connection' => 'Close',
-			// 'Content-Type' => 'application/x-www-form-urlencoded',
 			'Content-Length' => strlen($data)
 		);
 
@@ -325,7 +326,7 @@ class Client {
 			$headers['Cookie'] = http_build_query($_COOKIE);
 		}
 
-		$nl = "\r\n";
+		$nl = "\r\n"; // new line
 
 		$message = sprintf('POST %s HTTP/1.0', $this->serverUrl); // HTTP 1.0 to disable chunked encoding
 		$message .= $nl;
